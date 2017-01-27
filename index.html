@@ -1,4 +1,4 @@
-<html>
+<html style="background:rgb(35,35,35);">
 
     <head>
         <script type="text/javascript" src="https://kaemura.bitbucket.io/core/core.js"></script>
@@ -8,9 +8,7 @@
     
     <body style="margin:0">
         
-        
-        <svg id="svg" width="100vw" height="100vh" onmousedown="mousedown(event)"></svg>
-        
+        <svg id="svg" width="100vw" height="100vh" onmousedown="mousedown(event)" style="position:fixed;"></svg>
         
         <script>
             function lerp (start, end, amt)
@@ -68,8 +66,6 @@
                 shrooms.push(new Mushroom(garden.x + ldx(mdis, mdir), garden.y + ldy(mdis, mdir)));
             }
             
-            
-            
             function update()
             {
                window.requestAnimationFrame(update);
@@ -80,7 +76,6 @@
                 {
                     if(shrooms[_])shrooms[_].update();
                 }
-                
             }
             window.requestAnimationFrame(update);
             

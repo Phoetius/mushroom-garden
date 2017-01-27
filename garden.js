@@ -11,11 +11,9 @@ function Garden(x, y)
     this.install = function()
     {
         this.element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        this.element.setAttribute("r", "200");
-        
+        this.element.setAttribute("r", "200");        
+        this.element.setAttribute("fill", "rgb(50,50,50");
         this.element.setAttribute("transform", "translate("+this.x+","+this.y+") scale(1,.5)" );
-        
-        this.element.setAttribute("fill", "black");
         
         svg.appendChild(this.element);
         
