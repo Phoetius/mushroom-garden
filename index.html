@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://kaemura.bitbucket.io/core/core.js"></script>
+        <script type="text/javascript" src="mushroom.js"></script>
+        <script type="text/javascript" src="garden.js"></script>
+    </head>
+    
+    <body style="margin:0">
+        
+        
+        <svg id="svg" width="100vw" height="100vh" onmousedown="mousedown(event)"></svg>
+        
+        
+        <script>
+            function lerp (start, end, amt)
+            {
+                return (1 - amt) * start + amt * end;
+            }
+        
+        
+        
+            var drag = false;
+            var mxlast = 0;
+            var mylast = 0;
+            
+            
+            
+            window.onmousemove = function(e)
+            {
+                if(drag)
+                {
+                    garden.trot -= e.clientX - mxlast;
+                    
+                    mxlast = e.clientX;
+                    mylast = e.clientY;
+                }
+            }
+            
+            window.onmouseup = function()
+            {
+                drag=false;
+            }
+            
+            
+        
+            svg = document.getElementById("svg");
+            
+            mousedown = function(e)
+            {
+                
+                drag = true;
+                mxlast = e.clientX;
+                mylast = e.clientY;
+            }
+        
+            garden = new Garden(300,300);
+            
+            var mdis = Math.random()*200
+            var mdir = Math.random()*360
+            
+            shrooms = [];
+            
+            for(_=0; _<=10; _++)
+            {
+                mdis = Math.random() * 200;
+                mdir = Math.random() * 360;
+                shrooms.push(new Mushroom(garden.x + ldx(mdis, mdir), garden.y + ldy(mdis, mdir)));
+            }
+            
+            
+            
+            function update()
+            {
+               window.requestAnimationFrame(update);
+                
+                garden.update();
+                
+                for(var _=0; _<=shrooms.length-1; _++)
+                {
+                    if(shrooms[_])shrooms[_].update();
+                }
+                
+            }
+            window.requestAnimationFrame(update);
+            
+        
+        </script>
+    </body>
+</html>
