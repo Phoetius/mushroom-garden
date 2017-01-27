@@ -5,6 +5,8 @@ function Garden(x, y)
     this.y = y;
     this.rot = 0;
     this.trot = 0;
+    this.tilt = 0;
+    this.ttilt = .5;
     
     this.install = function()
     {
@@ -33,7 +35,10 @@ function Garden(x, y)
     
     this.update = function()
     {
+        this.element.setAttribute("transform", "translate("+this.x+","+this.y+") scale(1,"+this.tilt+")" );
+
         this.rot = lerp(this.rot, this.trot, .2);
+        this.tilt = lerp(this.tilt, this.ttilt, .2);
     }
 
     this.install();

@@ -1,4 +1,5 @@
 <html>
+
     <head>
         <script type="text/javascript" src="https://kaemura.bitbucket.io/core/core.js"></script>
         <script type="text/javascript" src="mushroom.js"></script>
@@ -17,19 +18,21 @@
                 return (1 - amt) * start + amt * end;
             }
         
-        
+        	//
         
             var drag = false;
             var mxlast = 0;
             var mylast = 0;
-            
-            
             
             window.onmousemove = function(e)
             {
                 if(drag)
                 {
                     garden.trot -= e.clientX - mxlast;
+                    garden.ttilt += (e.clientY - mylast)*.005;
+
+                    if(garden.ttilt>.8)garden.ttilt = .8;
+                    if(garden.ttilt<.1)garden.ttilt = .1;
                     
                     mxlast = e.clientX;
                     mylast = e.clientY;
@@ -40,8 +43,6 @@
             {
                 drag=false;
             }
-            
-            
         
             svg = document.getElementById("svg");
             

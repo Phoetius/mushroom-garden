@@ -40,7 +40,7 @@ function Mushroom(x,y)
     this.update = function()
     {
         this.x = garden.x+ldx(this.bdis, this.bdir+garden.rot);
-        this.y = garden.y+ldy(this.bdis/2, this.bdir+garden.rot);
+        this.y = garden.y+ldy(this.bdis*garden.tilt, this.bdir+garden.rot);
         
         this.element.setAttribute("transform", "translate("+this.x+","+this.y+")");
         this.element.setAttribute("transform", "translate("+this.x+","+this.y+")");
