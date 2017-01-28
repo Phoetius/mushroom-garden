@@ -9,6 +9,7 @@ function Mushroom(x,y)
     this.y = y;
     this.bdis = dis(garden.x, garden.y, this.x, this.y);
     this.bdir = dir(garden.x, garden.y, this.x, this.y);
+    this.scale = Math.random()*.5+.5;
     
     this.install = function()
     {
@@ -22,8 +23,7 @@ function Mushroom(x,y)
     
         document.body.appendChild(this.element);
 
-        var sc = Math.random()*.5+.5;
-        this.element.style.transform = "scale("+sc+","+sc+")";
+        this.element.style.transform = "scale("+this.scale+","+this.scale+")";
 
         this.addmousedown(this.element, this);
     }
@@ -42,9 +42,13 @@ function Mushroom(x,y)
     {
         this.x = garden.x+ldx(this.bdis, this.bdir+garden.rot);
         this.y = garden.y+ldy(this.bdis*garden.tilt, this.bdir+garden.rot);
+
+        console.log(this.x)
         
-        this.element.style.left = this.x-12;
-        this.element.style.top = this.y-35;
+        //this.element.style.left = (this.x-12) + "px";
+        //this.element.style.top = (this.y-35) + "px";
+
+        this.element.style.transform = "translate("+(this.x-12)+"px,"+(this.y-35)+"px)" + "scale("+this.scale+","+this.scale+")";
 
         this.element.style.zIndex = Math.floor(this.y);
     }
