@@ -33,6 +33,9 @@ function Garden(x, y)
     
     this.update = function()
     {
+        this.x = window.innerWidth/2;
+        this.y = window.innerHeight/2;
+        
         this.element.setAttribute("transform", "translate("+this.x+","+this.y+") scale(1,"+this.tilt+")" );
 
         this.rot = lerp(this.rot, this.trot, .2);

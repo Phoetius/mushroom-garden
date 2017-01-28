@@ -15,14 +15,15 @@ function Mushroom(x,y)
         this.element = document.createElement("img");
 
         var i = Math.floor(Math.random()*4);
-        var imgs = ["shroom_holeSmall70.svg", "shroom_holeSmall137.svg", "shroom_holeSmall171.svg", "shroom_holeSmall229.svg"]
+        var imgs = ["shroomBox70.svg", "shroomBox137.svg", "shroomBox171.svg", "shroomBox229.svg"]
         this.element.setAttribute("src", imgs[i])
         this.element.style.position = "fixed";
         this.element.style.zIndex = 100;
 
         document.body.appendChild(this.element);
 
-        //this.element.setAttribute("transform", "translate("+this.x+","+this.y+")");
+        var sc = Math.random()*.5+.5;
+        this.element.style.transform = "scale("+sc+","+sc+")";
 
         this.addmousedown(this.element, this);
     }
