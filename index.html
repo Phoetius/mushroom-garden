@@ -11,6 +11,12 @@
         user-select:none;
         pointer-events:none;
         }
+        
+        @keyframes fadein{
+            from {opacity:0;}
+            to {opacity:1;}
+        }
+        
     </style>
     
     <body style="margin:0">
@@ -66,12 +72,16 @@
             
             shrooms = [];
             
+            
+            
+            
             for (_ = 0; _ <= 10; _++)
             {
                 mdis = Math.random() * 200;
                 mdir = Math.random() * 360;
                 shrooms.push(new Mushroom(garden.x + ldx(mdis, mdir), garden.y + ldy(mdis, mdir)));
             }
+            
             
             function update()
             {
