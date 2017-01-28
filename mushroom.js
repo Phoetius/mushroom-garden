@@ -19,7 +19,7 @@ function Mushroom(x,y)
         this.element.setAttribute("src", imgs[i])
         this.element.style.position = "fixed";
         this.element.style.zIndex = 100;
-
+    
         document.body.appendChild(this.element);
 
         var sc = Math.random()*.5+.5;
