@@ -10,14 +10,21 @@ function Garden(x, y)
     
     this.install = function()
     {
-        this.element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        this.element.setAttribute("r", "200");        
-        this.element.setAttribute("fill", "rgb(50,50,50");
-        this.element.setAttribute("transform", "translate("+this.x+","+this.y+") scale(1,.5)" );
+        this.element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        this.element.style.position = "fixed";
+        this.element.style.overflow = "visible";
+        this.element.style.pointerEvents = "none";
+        this.element.style.transformOrigin = "0,0";
+        this.element.style.transform = "translate("+this.x+"px,"+this.y+"px) scale(1,.5)";
         
-        svg.appendChild(this.element);
+        document.body.appendChild(this.element);
         
-        this.addmousedown(this.element, this);
+        var element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        element.setAttribute("r", "200");
+        element.setAttribute("fill", "rgb(50,50,50");
+        this.element.appendChild(element);
+        
+        //this.addmousedown(this.element, this);
     }
     
     this.addmousedown = function(elem, obj)
@@ -28,7 +35,7 @@ function Garden(x, y)
     
     this.mousedown = function(e)
     {
-        e.stopPropagation();
+        //e.stopPropagation();
     }
     
     this.update = function()
@@ -36,7 +43,7 @@ function Garden(x, y)
         this.x = window.innerWidth/2;
         this.y = window.innerHeight/2;
         
-        this.element.setAttribute("transform", "translate("+this.x+","+this.y+") scale(1,"+this.tilt+")" );
+        this.element.style.transform = "translate("+this.x+"px,"+this.y+"px) scale(1,"+this.tilt+")";
 
         this.rot = lerp(this.rot, this.trot, .2);
         this.tilt = lerp(this.tilt, this.ttilt, .2);

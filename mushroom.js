@@ -10,27 +10,27 @@ function Mushroom(x,y)
     this.bdis = dis(garden.x, garden.y, this.x, this.y);
     this.bdir = dir(garden.x, garden.y, this.x, this.y);
     this.scale = Math.random()*.5+.5;
-    this.delay = Math.random()*2;
+    this.delay = Math.random()*1;
     
     this.install = function()
     {
-        this.element = document.createElement("img");
-
-        var i = Math.floor(Math.random()*4);
-        var imgs = ["shroomBox70.svg", "shroomBox137.svg", "shroomBox171.svg", "shroomBox229.svg"];
-        this.element.setAttribute("src", imgs[i]);
+        this.element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.element.style.position = "fixed";
-        this.element.style.zIndex = 100;
-        
+        this.element.style.overflow = "visible";
+        this.element.style.pointerEvents = "none";
+        this.element.style.transformOrigin = "0,0";
         this.element.style.opacity = "0";
         this.element.style.animationFillMode = "forwards";
         this.element.style.animationName = "fadein";
-        this.element.style.animationDuration = "1s";
+        this.element.style.animationDuration = ".7s";
         this.element.style.animationDelay = this.delay.toString() + "s";
         
-        
         document.body.appendChild(this.element);
-
+        
+        var element = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        element.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#shroombox");
+        this.element.appendChild(element);
+        
         this.element.style.transform = "scale("+this.scale+","+this.scale+")";
 
         this.addmousedown(this.element, this);
@@ -54,7 +54,7 @@ function Mushroom(x,y)
         //this.element.style.left = (this.x-12) + "px";
         //this.element.style.top = (this.y-35) + "px";
 
-        this.element.style.transform = "translate("+(this.x-12)+"px,"+(this.y-35)+"px)" + "scale("+this.scale+","+this.scale+")";
+        this.element.style.transform = "translate("+(this.x)+"px,"+(this.y)+"px)" + "scale("+this.scale+","+this.scale+")";
 
         this.element.style.zIndex = Math.floor(this.y);
     }

@@ -21,7 +21,17 @@
     
     <body style="margin:0">
         
-        <svg id="svg" width="100vw" height="100vh" onmousedown="mousedown(event)" style="position:fixed;"></svg>
+        <svg id="svg" style="position:fixed">
+            <defs>
+                <path
+                   sodipodi:nodetypes="ssszzzzs"
+                   inkscape:connector-curvature="0"
+                   id="shroombox"
+                   d="m 0,0 c -1.1373,-0.3496 -4.9331,-0.5349 -6.1428,-2.0176 -3.2477,-3.981 -3.687,-13.8785 -2.3913,-21.4623 1.7783,-10.40856 23.182,-12.29246 26.3772,-3.77125 3.1952,8.52125 1.1704,21.71415 -1.0662,24.38565 -2.2367,2.6716 -5.2247,0.8692 -7.9743,3.0716 -2.7497,2.2024 0.5447,5.4795 -3.9764,6.7164 -4.5211,1.237 -0.6355,-5.6342 -4.8262,-6.9225 z"
+                   style="opacity:1;fill:#e5e5e5;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+                />
+            </defs>
+        </svg>
         
         <script>
             function lerp (start, end, amt)
@@ -57,7 +67,7 @@
         
             svg = document.getElementById("svg");
             
-            mousedown = function(e)
+            window.onmousedown = function(e)
             {
                 
                 drag = true;
