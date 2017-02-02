@@ -11,7 +11,6 @@ function Mushroom(x,y)
     this.bdir = dir(garden.x, garden.y, this.x, this.y);
     this.scale = 0;
     this.delay = Math.random()*1;
-    //this.count = 300;
     
     this.install = function()
     {

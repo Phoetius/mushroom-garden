@@ -60,8 +60,6 @@ function update()
 {
     window.requestAnimationFrame(update);
     
-    //Mushroom Scale
-    
     // Garden
     garden.update();
     
