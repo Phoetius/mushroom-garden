@@ -9,8 +9,9 @@ function Mushroom(x,y)
     this.y = y;
     this.bdis = dis(garden.x, garden.y, this.x, this.y);
     this.bdir = dir(garden.x, garden.y, this.x, this.y);
-    this.scale = Math.random()*.5+.5;
+    this.scale = 0;
     this.delay = Math.random()*1;
+    //this.count = 300;
     
     this.install = function()
     {
@@ -47,6 +48,15 @@ function Mushroom(x,y)
     this.mousedown = function(e)
     {
         e.stopPropagation();
+    }
+    
+    //Increase scale
+    this.grow = function()
+    {
+        if(this.scale < .8)
+        {
+            this.scale = this.scale + .001;
+        }
     }
     
     this.update = function()

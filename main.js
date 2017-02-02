@@ -60,6 +60,8 @@ function update()
 {
     window.requestAnimationFrame(update);
     
+    //Mushroom Scale
+    
     // Garden
     garden.update();
     
@@ -67,6 +69,7 @@ function update()
     for(var _=0; _<=shrooms.length-1; _++)
     {
         if(shrooms[_])shrooms[_].update();
+        if(shrooms[_])shrooms[_].grow();
     }
 }
 window.requestAnimationFrame(update);
