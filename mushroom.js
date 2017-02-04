@@ -1,4 +1,4 @@
-function Mushroom(x,y)
+function Mushroom(x,y,time)
 {
     this.element = null;
     this.p = null;
@@ -11,6 +11,8 @@ function Mushroom(x,y)
     this.bdir = dir(garden.x, garden.y, this.x, this.y);
     this.scale = 0;
     this.delay = Math.random()*1;
+    this.createdtime = time || Date.now();
+    this.age = 0;
     
     this.install = function()
     {
@@ -52,20 +54,25 @@ function Mushroom(x,y)
     //Increase scale
     this.grow = function()
     {
-        if(this.scale < .8)
+        if(this.scale < 1)
         {
-            this.scale = this.scale + .001;
+            this.scale = this.age/300000;
         }
     }
     
+    
     this.update = function()
     {
+        this.age = Date.now()-this.createdtime;
+        
         this.x = garden.x+ldx(this.bdis, this.bdir+garden.rot);
         this.y = garden.y+ldy(this.bdis*garden.tilt, this.bdir+garden.rot);
 
         this.element.style.transform = "translate("+(this.x)+"px,"+(this.y)+"px)" + "scale("+this.scale+","+this.scale+")";
 
         this.element.style.zIndex = Math.floor(this.y);
+        
+        this.grow();
     }
 
     this.install();

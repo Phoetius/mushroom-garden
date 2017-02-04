@@ -11,6 +11,7 @@ function lerp (start, end, amt)
 var drag = false;
 var mxlast = 0;
 var mylast = 0;
+datestart = Date.now();
 
 window.onmousemove = function(e)
 {
@@ -47,12 +48,15 @@ garden = new Garden(300,300);
 // Create shrooms
 shrooms = [];
 
-for (_ = 0; _ <= 10; _++)
+function newgame()
 {
-    var mdis = Math.random() * 180;
-    var mdir = Math.random() * 360;
+    console.log(Date.now());
+    for (_ = 0; _ <= 10; _++) {
+        var mdis = Math.random() * 180;
+        var mdir = Math.random() * 360;
 
-    shrooms.push(new Mushroom(garden.x + ldx(mdis, mdir), garden.y + ldy(mdis, mdir)));
+        shrooms.push(new Mushroom(garden.x + ldx(mdis, mdir), garden.y + ldy(mdis, mdir), 0));
+    }
 }
 
 // Game loop
@@ -67,7 +71,31 @@ function update()
     for(var _=0; _<=shrooms.length-1; _++)
     {
         if(shrooms[_])shrooms[_].update();
-        if(shrooms[_])shrooms[_].grow();
     }
 }
 window.requestAnimationFrame(update);
+
+function save()
+{
+    console.log(Date.now());
+    var saveshrooms = [];
+    for(var _=0; _<=shrooms.length-1; _++)
+    {
+        var cshroom = [];
+        cshroom[0] = shrooms[_].x;
+        cshroom[1] = shrooms[_].y;
+        cshroom[2] = shrooms[_].createdtime;
+        saveshrooms.push(cshroom.join(","));
+    }
+    localStorage.shrooms = saveshrooms.join(";");
+}
+
+function load()
+{
+    var loadshrooms = localStorage.shrooms.split(";");
+    for(var _=0; _<=loadshrooms.length-1; _++)
+    {
+        var cshroom = loadshrooms[_].split(",");
+        shrooms.push(new Mushroom(cshroom[0], cshroom[1], cshroom[2]));
+    }
+}
