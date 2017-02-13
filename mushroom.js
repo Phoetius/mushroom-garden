@@ -1,14 +1,15 @@
-function Mushroom(x,y,time)
+function Mushroom(par,x,y,time)
 {
     this.element = null;
     this.p = null;
     
+    this.par = par;
     this.moveable = true;
     this.drag = false;
     this.x = x;
     this.y = y;
-    this.bdis = dis(garden.x, garden.y, this.x, this.y);
-    this.bdir = dir(garden.x, garden.y, this.x, this.y);
+    this.bdis = dis(par.x, par.y, this.x, this.y);
+    this.bdir = dir(par.x, par.y, this.x, this.y);
     this.scale = 0;
     this.delay = Math.random()*1;
     this.createdtime = time || Date.now();
@@ -54,10 +55,8 @@ function Mushroom(x,y,time)
     //Increase scale
     this.grow = function()
     {
-        if(this.scale < 1)
-        {
-            this.scale = this.age/300000;
-        }
+        this.scale = this.age/5000;
+        if(this.scale>1)this.scale=1;
     }
     
     
@@ -65,8 +64,8 @@ function Mushroom(x,y,time)
     {
         this.age = Date.now()-this.createdtime;
         
-        this.x = garden.x+ldx(this.bdis, this.bdir+garden.rot);
-        this.y = garden.y+ldy(this.bdis*garden.tilt, this.bdir+garden.rot);
+        this.x = par.x+ldx(this.bdis, this.bdir+par.rot);
+        this.y = par.y+ldy(this.bdis*par.tilt, this.bdir+par.rot);
 
         this.element.style.transform = "translate("+(this.x)+"px,"+(this.y)+"px)" + "scale("+this.scale+","+this.scale+")";
 

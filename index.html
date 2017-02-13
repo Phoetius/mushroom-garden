@@ -60,6 +60,11 @@
         bottom:50px;
         background:none;
     }
+    
+    .cir:hover
+    {
+        stroke:rgba(255,255,255,.5);
+    }
         
     </style>
     
@@ -79,19 +84,19 @@
         
 
         <svg class = "leftbutton" >
-            <circle cx="25px" cy="25px" r="15px" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
+            <circle class="cir" onmousedown="garden.unload('left')" cx="25px" cy="25px" r="15px" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
         </svg>
         
         <svg class = "rightbutton" >
-            <circle cx="25px" cy="25px" r="15px" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
+            <circle class="cir" onmousedown="garden.unload('right')" cx="25px" cy="25px" r="15px" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
         </svg>
         
         <svg class = "topbutton" >
-            <circle cx="25px" cy="25px" r="15px" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
+            <circle class="cir" onmousedown="garden.unload('up')"  cx="25px" cy="25px" r="15px" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
         </svg>
         
         <svg class = "bottombutton" >
-            <circle cx="25px" cy="25px" r="15px" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
+            <circle class="cir" onmousedown="garden.unload('down')" cx="25px" cy="25px" r="15px" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,.3)" stroke-width="3px"/>
         </svg>
         
         <script type="text/javascript" src="main.js"></script>

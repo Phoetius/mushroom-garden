@@ -13,6 +13,9 @@ var mxlast = 0;
 var mylast = 0;
 datestart = Date.now();
 
+gx = 2;
+gy = 2;
+
 window.onmousemove = function(e)
 {
     if(drag)
@@ -43,20 +46,18 @@ window.onmousedown = function(e)
 // Start
 
 // Create garden
-garden = new Garden(300,300);
+garden = new Garden(window.innerWidth / 2,window.innerHeight / 2);
+oldgarden = null;
 
 // Create shrooms
-shrooms = [];
+
+
 
 function newgame()
 {
+    localStorage.world = "-|-|-|-|-|-|-|-|-";
+    
     console.log(Date.now());
-    for (_ = 0; _ <= 10; _++) {
-        var mdis = Math.random() * 180;
-        var mdir = Math.random() * 360;
-
-        shrooms.push(new Mushroom(garden.x + ldx(mdis, mdir), garden.y + ldy(mdis, mdir), 0));
-    }
 }
 
 // Game loop
@@ -66,36 +67,51 @@ function update()
     
     // Garden
     garden.update();
+    if(oldgarden!=null)oldgarden.update();
     
     // Shrooms
-    for(var _=0; _<=shrooms.length-1; _++)
+    for(var _=0; _<=garden.shrooms.length-1; _++)
     {
-        if(shrooms[_])shrooms[_].update();
+        if(garden.shrooms[_])garden.shrooms[_].update();
+    }
+    
+    if(oldgarden!=null)
+    {
+        for (var _ = 0; _ <= oldgarden.shrooms.length - 1; _++)
+        {
+            if (oldgarden.shrooms[_]) oldgarden.shrooms[_].update();
+        }
     }
 }
 window.requestAnimationFrame(update);
 
 function save()
 {
-    console.log(Date.now());
+    //Mushrooms
     var saveshrooms = [];
-    for(var _=0; _<=shrooms.length-1; _++)
+    var world = localStorage.world.split("|");
+    for(var _=0; _<=garden.shrooms.length-1; _++)
     {
         var cshroom = [];
-        cshroom[0] = shrooms[_].x;
-        cshroom[1] = shrooms[_].y;
-        cshroom[2] = shrooms[_].createdtime;
+        cshroom[0] = garden.shrooms[_].x;
+        cshroom[1] = garden.shrooms[_].y;
+        cshroom[2] = garden.shrooms[_].createdtime;
         saveshrooms.push(cshroom.join(","));
     }
-    localStorage.shrooms = saveshrooms.join(";");
+    world[(gy*3)-(3-gx)] = saveshrooms.join(";");
+    console.log(world);
+    localStorage.world = world.join("|");
 }
 
 function load()
 {
-    var loadshrooms = localStorage.shrooms.split(";");
-    for(var _=0; _<=loadshrooms.length-1; _++)
-    {
+    var world = localStorage.world.split("|");
+    console.log(world);
+    
+    //Mushrooms
+    var loadshrooms = world[(gy*3)-(3-gx)].split(";");
+    for (var _ = 0; _ <= loadshrooms.length - 1; _++) {
         var cshroom = loadshrooms[_].split(",");
-        shrooms.push(new Mushroom(cshroom[0], cshroom[1], cshroom[2]));
+        garden.shrooms.push(new Mushroom(cshroom[0], cshroom[1], cshroom[2]));
     }
 }
