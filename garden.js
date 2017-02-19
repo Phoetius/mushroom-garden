@@ -3,13 +3,13 @@ function Garden(x, y)
     this.element = null;
     this.x = x;
     this.y = y;
-    this.targetx = x;
-    this.targety = y;
+    this.targetx = window.innerWidth / 2;
+    this.targety = window.innerHeight / 2;
     this.rot = 0;
     this.trot = 0;
     this.tilt = .5;
     this.ttilt = .5;
-    this.transition = false;
+    //this.transition = false;
     this.shrooms = [];
     
     this.install = function()
@@ -27,56 +27,66 @@ function Garden(x, y)
         element.setAttribute("r", "200");
         element.style.fill = "rgb(50,50,50)";
         this.element.appendChild(element);
-        
-        //this.addmousedown(this.element, this);
     }
     
-    this.addmousedown = function(elem, obj)
+    this.unload = function(tdir)
     {
-        elem.addEventListener("mousedown", function(){obj.mousedown(event);}, false);
-    }
-    
-    
-    this.mousedown = function(e)
-    {
-        //e.stopPropagation();
-    }
-    
-    this.unload = function(dir)
-    {
-        this.transition = true;
-        
-        save();
-        
-        oldgarden = garden;
-        
-        if(dir=="left")
+        if(transition==false)
         {
-            gx-=1;
-            this.targetx = (window.innerWidth / 2) * 3;
-            garden = new Garden(-(window.innerWidth / 2), garden.y);
+            
+            if(tdir=="left")
+            {
+                if(gx>0)
+                {
+                    transition = true;
+                    save();
+                    oldgarden = this;
+                    gx--;
+                    this.targetx = (window.innerWidth / 2) * 3;
+                    garden = new Garden(-(window.innerWidth / 2), garden.y);
+                    load();
+                }
+            }
+            else if(tdir=="right")
+            {
+                if(gx<2)
+                {
+                    transition = true;
+                    save();
+                    oldgarden = this;
+                    gx++;
+                    this.targetx = -(window.innerWidth / 2);
+                    garden = new Garden((window.innerWidth / 2)*3, garden.y);
+                    load();
+                }
+            }
+            else if(tdir=="up")
+            {
+                if(gy>0)
+                {
+                    transition = true;
+                    save();
+                    oldgarden = this;
+                    gy--
+                    this.targety = (window.innerHeight / 2)*3;
+                    garden = new Garden(garden.x, -(window.innerHeight / 2));
+                    load();
+                }
+            }
+            else if(tdir=="down")
+            {
+                if(gy<2)
+                {
+                    transition = true;
+                    save();
+                    oldgarden = this;
+                    gy++;
+                    this.targety = -(window.innerHeight / 2);
+                    garden = new Garden(garden.x, (window.innerHeight / 2)*3);
+                    load();
+                }
+            }
         }
-        else if(dir=="right")
-        {
-            gx+=1;
-            this.targetx = -(window.innerWidth / 2);
-            garden = new Garden((window.innerWidth / 2)*3, garden.y);
-        }
-        else if(dir=="up")
-        {
-            gy-=
-            this.targety = (window.innerHeight / 2)*3;
-            garden = new Garden(garden.x, -(window.innerHeight / 2));
-        }
-        else if(dir=="down")
-        {
-            gy+=1;
-            this.targety = -(window.innerHeight / 2);
-            garden = new Garden(garden.x, (window.innerHeight / 2)*3);
-        }
-        
-        load();
-        
     }
     
     this.start = function()
@@ -89,6 +99,7 @@ function Garden(x, y)
     
     this.destroy = function()
     {
+        transition = false;
         this.element.remove();
         
         for(var _=0; _<=this.shrooms.length-1; _++)
@@ -101,14 +112,14 @@ function Garden(x, y)
     
     this.update = function()
     {
-        if(this.transition==false)
+        /*if(this.transition==false)
         {
             this.targetx = window.innerWidth / 2;
             this.targety = window.innerHeight / 2;
-        }
+        }*/
         
-        this.x = lerp(this.x, this.targetx, .04);
-        this.y = lerp(this.y, this.targety, .04);
+        this.x = lerp(this.x, this.targetx, .1);
+        this.y = lerp(this.y, this.targety, .1);
         
         this.element.style.transform = "translate("+this.x+"px,"+this.y+"px) scale(1,"+this.tilt+")";
 
@@ -119,7 +130,6 @@ function Garden(x, y)
         {
             if(dis(this.x, this.y, this.targetx, this.targety)<32)
             {
-                console.log(this + " : destroyed");
                 this.destroy();
             }
         }
