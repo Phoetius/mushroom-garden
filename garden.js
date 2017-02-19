@@ -52,24 +52,30 @@ function Garden(x, y)
         
         if(dir=="left")
         {
+            gx-=1;
             this.targetx = (window.innerWidth / 2) * 3;
             garden = new Garden(-(window.innerWidth / 2), garden.y);
         }
         else if(dir=="right")
         {
+            gx+=1;
             this.targetx = -(window.innerWidth / 2);
             garden = new Garden((window.innerWidth / 2)*3, garden.y);
         }
         else if(dir=="up")
         {
+            gy-=
             this.targety = (window.innerHeight / 2)*3;
             garden = new Garden(garden.x, -(window.innerHeight / 2));
         }
         else if(dir=="down")
         {
+            gy+=1;
             this.targety = -(window.innerHeight / 2);
             garden = new Garden(garden.x, (window.innerHeight / 2)*3);
         }
+        
+        load();
         
     }
     
@@ -77,11 +83,20 @@ function Garden(x, y)
     {
         for (_ = 0; _ <= 10; _++)
         {
-            var mdis = Math.random() * 180;
-            var mdir = Math.random() * 360;
-    
-            this.shrooms.push(new Mushroom(this, this.x + ldx(mdis, mdir), this.y + ldy(mdis, mdir), 0));
+            this.shrooms.push(new Mushroom(this, Math.random()*180, Math.random()*360, 0));
         }
+    }
+    
+    this.destroy = function()
+    {
+        this.element.remove();
+        
+        for(var _=0; _<=this.shrooms.length-1; _++)
+		{
+			this.shrooms[_].element.remove();
+		}
+		
+		oldgarden = null;
     }
     
     this.update = function()
@@ -99,6 +114,15 @@ function Garden(x, y)
 
         this.rot = lerp(this.rot, this.trot, .2);
         this.tilt = lerp(this.tilt, this.ttilt, .2);
+        
+        if(oldgarden==this)
+        {
+            if(dis(this.x, this.y, this.targetx, this.targety)<32)
+            {
+                console.log(this + " : destroyed");
+                this.destroy();
+            }
+        }
     }
 
     this.install();

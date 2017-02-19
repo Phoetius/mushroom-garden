@@ -1,4 +1,4 @@
-function Mushroom(par,x,y,time)
+function Mushroom(par,bdis,bdir,time)
 {
     this.element = null;
     this.p = null;
@@ -6,10 +6,10 @@ function Mushroom(par,x,y,time)
     this.par = par;
     this.moveable = true;
     this.drag = false;
-    this.x = x;
-    this.y = y;
-    this.bdis = dis(par.x, par.y, this.x, this.y);
-    this.bdir = dir(par.x, par.y, this.x, this.y);
+    this.x = 0;
+    this.y = 0;
+    this.bdis = bdis;
+    this.bdir = bdir;
     this.scale = 0;
     this.delay = Math.random()*1;
     this.createdtime = time || Date.now();

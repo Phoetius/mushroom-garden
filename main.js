@@ -93,8 +93,8 @@ function save()
     for(var _=0; _<=garden.shrooms.length-1; _++)
     {
         var cshroom = [];
-        cshroom[0] = garden.shrooms[_].x;
-        cshroom[1] = garden.shrooms[_].y;
+        cshroom[0] = garden.shrooms[_].bdis;
+        cshroom[1] = garden.shrooms[_].bdir;
         cshroom[2] = garden.shrooms[_].createdtime;
         saveshrooms.push(cshroom.join(","));
     }
@@ -112,6 +112,6 @@ function load()
     var loadshrooms = world[(gy*3)-(3-gx)].split(";");
     for (var _ = 0; _ <= loadshrooms.length - 1; _++) {
         var cshroom = loadshrooms[_].split(",");
-        garden.shrooms.push(new Mushroom(cshroom[0], cshroom[1], cshroom[2]));
+        garden.shrooms.push(new Mushroom(garden, cshroom[0], cshroom[1], cshroom[2]));
     }
 }
